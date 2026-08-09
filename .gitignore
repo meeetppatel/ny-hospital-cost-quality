@@ -5,3 +5,4 @@ __pycache__/
 dbt_packages/
 target/
 logs/
+price_transparency_raw/
