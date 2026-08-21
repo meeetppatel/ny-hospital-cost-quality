@@ -1,0 +1,32 @@
+version: 2
+
+# Declares the raw BigQuery tables that dbt staging models read from.
+# Referencing sources via {{ source('raw', 'table_name') }} instead of
+# hardcoding the fully-qualified table path makes dependencies explicit
+# (dbt builds a lineage graph from these) and centralizes the raw location.
+
+sources:
+  - name: raw
+    database: ny-hospital-cost-quality   # GCP project
+    schema: raw                          # BigQuery dataset holding untouched raw loads
+    description: >
+      Raw, untouched loads from CMS APIs, the Medicare inpatient CSV, and 8 NY
+      hospital price transparency files. Every column is STRING by design so
+      suppression codes and malformed values survive to be handled deliberately
+      in staging. See docs/data_quality_findings.md.
+    tables:
+      # --- CMS quality data ---
+      - name: hospital_readmissions
+      - name: hospital_complications
+      - name: hospital_hcahps
+      # --- CMS cost data ---
+      - name: medicare_inpatient_utilization
+      # --- Price transparency (one table per hospital; schemas differ) ---
+      - name: price_tx_newyork_presbyterian
+      - name: price_tx_mount_sinai
+      - name: price_tx_nyu_langone
+      - name: price_tx_montefiore
+      - name: price_tx_brooklyn_hospital
+      - name: price_tx_flushing_hospital
+      - name: price_tx_rochester_general
+      - name: price_tx_albany_medical

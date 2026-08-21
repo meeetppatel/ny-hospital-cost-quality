@@ -6,3 +6,4 @@ dbt_packages/
 target/
 logs/
 price_transparency_raw/
+.Rhistory
