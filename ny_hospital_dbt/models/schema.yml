@@ -1,0 +1,87 @@
+version: 2
+
+# dbt tests: assertions dbt checks automatically on every `dbt test` run.
+# These encode what we learned during profiling (docs/data_quality_findings.md)
+# as enforceable rules, so the same issues can never silently return.
+
+models:
+
+  # ---- CMS staging models: ccn is the join key, must be clean everywhere ----
+  - name: stg_hospital_readmissions
+    description: "CMS Hospital Readmissions Reduction Program, cleaned to hospital-measure grain."
+    columns:
+      - name: ccn
+        description: "CMS Certification Number (6-digit). Cross-source join key."
+        data_tests:
+          - not_null
+      - name: excess_readmission_ratio
+        description: "Excess readmission ratio; NULL when suppressed. When present, a sane positive ratio."
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 3
+              config:
+                where: "excess_readmission_ratio is not null"
+
+  - name: stg_hospital_hcahps
+    description: "CMS HCAHPS patient survey, cleaned. Mostly suppressed rows by design."
+    columns:
+      - name: ccn
+        data_tests:
+          - not_null
+      - name: star_rating
+        description: "Star rating 1-5; NULL when not applicable/available."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+                quote: false
+              config:
+                where: "star_rating is not null"
+
+  - name: stg_medicare_inpatient
+    description: "CMS Medicare inpatient utilization/payment (cost), cleaned to hospital-DRG grain."
+    columns:
+      - name: ccn
+        data_tests:
+          - not_null
+      - name: avg_total_payment
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+              config:
+                where: "avg_total_payment is not null"
+
+  # ---- The mart: the analytical table. ccn must be unique (one row/hospital) ----
+  - name: mart_hospital_cost_quality
+    description: "One row per NY hospital: cost + quality measures side by side. Analysis foundation."
+    columns:
+      - name: ccn
+        description: "One row per hospital -- must be unique and present."
+        data_tests:
+          - not_null
+          - unique
+      - name: volume_weighted_avg_payment
+        description: "Headline cost measure; every hospital in the mart has cost data."
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+      - name: region
+        description: "Geographic segment derived from ZIP3."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['NYC', 'Downstate suburbs', 'Upstate']
+      - name: avg_excess_readmission_ratio
+        description: "Headline quality measure; NULL only for the few hospitals lacking readmission data."
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 3
+              config:
+                where: "avg_excess_readmission_ratio is not null"
