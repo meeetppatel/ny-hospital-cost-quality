@@ -1,0 +1,126 @@
+ccn,hospital_name,city,region,total_discharges,avg_payment_per_discharge,readmission_ratio,patient_satisfaction_star,patient_safety_psi90,mortality_30_pneumonia,has_core_readmissions,is_analytic
+330202,Kings County Hospital Center,Brooklyn,NYC,902,58663.8,0.9804,2,1.18,18.5,True,True
+330204,Bellevue Hospital Center,New York,NYC,918,57873.26,1.0059,2,1.16,13.9,True,True
+330231,Queens Hospital Center,Jamaica,NYC,570,56382.92,1.0119,3,0.88,13.7,True,True
+330199,Metropolitan Hospital Center,New York,NYC,45,56067.4,0.977,2,0.93,13.8,False,False
+330396,Woodhull Medical & Mental Health Center,Brooklyn,NYC,196,51463.12,1.0247,2,1.4,17.5,False,False
+330024,Mount Sinai Hospital,New York,NYC,9718,42889.51,0.9057,3,1.03,13.8,True,True
+330240,Harlem Hospital Center,New York,NYC,344,41003.44,1.0424,1,1.01,12.3,True,False
+330101,New York-Presbyterian Hospital,New York,NYC,27689,37525.72,0.9051,3,0.4,11.6,True,True
+330350,Suny Health Science Center At Brooklyn University,Brooklyn,NYC,403,37374.07,1.0285,2,1.05,18.3,False,False
+330399,St Barnabas Hospital,Bronx,NYC,395,36821.92,1.0288,2,1.28,16.9,False,False
+330270,Hospital For Special Surgery,New York,NYC,3230,36222.62,0.6738,4,0.62,,False,False
+330285,Strong Memorial Hospital,Rochester,Upstate,4088,36175.53,0.9583,3,1.33,12.4,True,True
+330128,Elmhurst Hospital Center,Elmhurst,NYC,1022,35986.98,0.9799,2,1.13,15.5,True,True
+330080,Lincoln Medical & Mental Health Center,Bronx,NYC,330,35369.94,0.9806,2,0.94,17.8,False,False
+330127,Jacobi Medical Center,Bronx,NYC,1771,35262.09,1.0097,2,1.14,15.7,True,True
+330059,Montefiore Medical Center,Bronx,NYC,9060,33416.87,1.0363,2,1.23,10.8,True,True
+330214,Nyu Langone Hospitals,New York,NYC,26286,32594.1,0.856,3,0.67,8.8,True,True
+330009,Bronxcare Hospital Center,Bronx,NYC,824,32182.89,1.0893,2,0.89,13.8,True,True
+330194,Maimonides Medical Center,Brooklyn,NYC,5865,32040.34,1.0896,2,0.9,13.1,True,True
+330119,Lenox Hill Hospital,New York,NYC,4039,30150.12,0.9362,2,0.96,13.7,True,True
+330234,Westchester Medical Center,Valhalla,Downstate suburbs,4024,29596.86,0.9628,2,1.22,17.0,True,True
+330056,Brooklyn Hospital Center - Downtown Campus,Brooklyn,NYC,714,29531.3,1.0456,2,0.88,19.3,True,True
+330233,Brookdale Hospital Medical Center,Brooklyn,NYC,1485,28923.12,1.0123,1,1.51,19.2,True,True
+330196,South Brooklyn Health,Brooklyn,NYC,2684,28288.81,1.1079,2,1.08,15.1,True,True
+330046,Mount Sinai West,New York,NYC,4907,27951.52,1.0312,2,0.92,11.9,True,True
+330193,Flushing Hospital Medical Center,Flushing,NYC,1226,27894.24,0.9947,3,1.02,17.9,True,True
+330013,Albany Medical Center Hospital,Albany,Upstate,5638,27422.37,0.9571,2,1.22,17.5,True,True
+330395,St John's Episcopal Hospital At South Shore,Far Rockaway,NYC,1507,26541.01,1.1635,2,1.26,26.5,True,True
+330014,Jamaica Hospital Medical Center,Jamaica,NYC,932,26347.05,1.0579,2,1.48,15.6,True,True
+330028,Richmond University Medical Center,Staten Island,NYC,1265,26238.24,1.0749,2,1.08,15.2,True,True
+330106,North Shore University Hospital,Manhasset,Upstate,12259,25750.05,0.9858,3,0.94,11.9,True,True
+330393,Stony Brook University Hospital,Stony Brook,Downstate suburbs,13318,24740.28,0.9278,3,1.06,12.9,True,True
+330005,Kaleida Health,Buffalo,Upstate,4764,24079.58,1.0028,2,1.44,12.0,True,True
+330055,New York-Presbyterian/Queens,Flushing,NYC,4779,23869.03,0.9386,3,0.62,14.3,True,True
+330006,St Joseph's Medical Center,Yonkers,Downstate suburbs,202,23043.16,1.0297,1,0.91,14.7,False,False
+330023,Vassar Brothers Medical Center,Poughkeepsie,Upstate,5764,22952.47,1.0495,3,1.08,14.0,True,True
+330241,University Hospital S U N Y Health Science Center,Syracuse,Upstate,4413,22620.03,0.9613,3,1.48,11.8,True,True
+330043,South Shore University  Hospital,Bay Shore,Downstate suburbs,4520,22190.57,0.9896,3,0.98,14.9,True,True
+330125,Rochester General Hospital,Rochester,Upstate,2545,22166.21,1.0619,2,1.75,14.7,True,True
+330160,Staten Island University Hospital,Staten Island,NYC,7127,22156.82,1.0219,2,1.12,14.9,True,True
+330140,St Joseph's Hospital Health Center,Syracuse,Upstate,3097,22143.23,1.0793,3,1.18,16.9,True,True
+330195,Long Island Jewish Medical Center,New Hyde Park,Upstate,10061,21814.07,1.0239,3,1.03,14.0,True,True
+330221,Wyckoff Heights Medical Center,Brooklyn,NYC,623,21650.65,0.991,2,0.97,17.8,True,True
+330184,Montefiore New Rochelle Hospital,New Rochelle,Downstate suburbs,881,21370.92,1.0318,2,0.94,21.1,True,True
+330027,Nassau University Medical Center,East Meadow,Downstate suburbs,1442,21192.18,1.0907,1,1.23,18.8,True,True
+330219,Erie County Medical Center,Buffalo,Upstate,1263,21155.3,0.9757,2,2.09,15.0,True,True
+330169,Mount Sinai Beth Israel,New York,NYC,3089,21084.65,1.0604,2,0.97,12.6,True,True
+330136,Mary Imogene Bassett Hospital,Cooperstown,Upstate,1567,20799.92,0.9498,3,1.27,18.7,True,True
+330182,"St Francis Hospital, Roslyn",Roslyn,Downstate suburbs,10053,20414.03,0.9459,4,1.1,11.9,True,True
+330198,Mount Sinai South Nassau,Oceanside,Downstate suburbs,5144,19505.28,1.0804,2,0.85,14.1,True,True
+330286,Good Samaritan Hospital Medical Center,West Islip,Downstate suburbs,5930,19015.73,0.8888,2,1.43,19.5,True,True
+330394,"United Health Services Hospitals, Inc",Binghamton,Upstate,2408,18822.03,0.9843,3,1.58,17.2,True,True
+330153,Ellis Hospital,Schenectady,Upstate,1588,18428.37,0.9976,2,1.37,15.7,True,True
+330185,John T Mather Memorial Hospital  Of Port Jefferson,Port Jefferson,Downstate suburbs,3485,18182.51,0.9515,4,0.93,9.8,True,True
+330057,St Peter's Hospital,Albany,Upstate,4645,17784.21,1.0664,3,1.2,16.0,True,True
+330079,Adirondack Medical Center - Saranac Lake,Saranac Lake,Upstate,312,17747.86,0.8923,5,1.28,17.8,True,False
+330304,White Plains Hospital Center,White Plains,Downstate suburbs,6453,17379.06,0.971,3,0.77,10.5,True,True
+330033,Chenango Memorial Hospital,Norwich,Upstate,128,17138.68,0.9794,4,1.16,21.3,False,False
+330141,Long Island Community Hospital,Patchogue,Downstate suburbs,2996,16788.59,0.9513,2,0.87,14.4,True,True
+330279,Mercy Hospital Of Buffalo,Buffalo,Upstate,2029,16675.76,1.0437,3,1.05,17.8,True,True
+330078,Sisters Of Charity Hospital,Buffalo,Upstate,441,16665.85,1.0353,3,1.71,12.0,True,False
+330157,Samaritan Medical Center,Watertown,Upstate,807,16429.99,1.0179,3,0.94,17.4,True,True
+330126,Garnet Health Medical Center,Middletown,Downstate suburbs,5742,16412.86,1.0268,3,0.81,12.8,True,True
+330090,Arnot Ogden Medical Center,Elmira,Upstate,803,16056.66,0.9923,3,2.28,17.0,True,True
+330250,The University Of Vermont Health Network  - Champl,Plattsburgh,Upstate,1812,15967.09,1.0048,3,2.02,14.5,True,True
+330261,Phelps Hospital,Sleepy Hollow,Downstate suburbs,1551,15910.61,0.9317,3,1.08,17.6,True,True
+330151,St James Hospital,Hornell,Upstate,129,15908.67,1.0312,3,0.97,13.4,True,False
+330181,Glen Cove Hospital,Glen Cove,Downstate suburbs,1284,15691.2,0.9397,4,0.85,14.9,True,True
+330049,Northern Dutchess Hospital,Rhinebeck,Upstate,974,15649.36,0.9815,4,0.82,12.6,True,True
+330158,Good Samaritan Hospital Of Suffern,Suffern,Downstate suburbs,3083,15600.05,1.0314,2,0.88,16.3,True,True
+330115,Oneida Health,Oneida,Upstate,287,15565.6,1.0551,4,0.93,20.1,True,False
+330164,Highland Hospital,Rochester,Upstate,1723,15550.47,1.0322,3,0.97,11.3,True,True
+330259,Mercy Medical Center,Rockville Centre,Downstate suburbs,1663,15274.29,0.9466,3,0.86,15.3,True,True
+330203,Crouse Hospital,Syracuse,Upstate,2619,15222.04,1.0532,3,1.17,19.9,True,True
+330238,Nicholas H Noyes Memorial Hospital,Dansville,Upstate,155,15156.4,0.9886,3,0.93,18.3,True,False
+330331,Plainview Hospital,Plainview,Downstate suburbs,3043,15104.48,0.9964,3,0.93,13.4,True,True
+330208,St John's Riverside Hospital,Yonkers,Downstate suburbs,1873,14966.63,1.0043,3,0.86,15.3,True,True
+330096,Jones Memorial Hospital,Wellsville,Upstate,221,14941.64,0.9538,3,1.11,12.9,True,False
+330104,Nyack Hospital,Nyack,Downstate suburbs,2548,14792.25,1.0805,2,0.81,15.0,True,True
+330307,Cayuga Medical Center At Ithaca,Ithaca,Upstate,717,14791.79,0.9621,3,0.96,20.6,True,True
+330180,Samaritan Hospital,Troy,Upstate,1446,14670.3,0.9263,3,0.94,12.1,True,True
+330215,"Rome Memorial Hospital, Inc",Rome,Upstate,463,14660.45,1.0207,2,0.96,19.8,True,False
+330045,Huntington Hospital,Huntington,Downstate suburbs,5970,14642.59,0.9734,4,0.75,11.4,True,True
+330086,Montefiore Mount Vernon Hospital,Mount Vernon,Downstate suburbs,107,14479.8,0.969,2,0.97,15.2,False,False
+330044,Wynn Hospital,Utica,Upstate,3533,14475.32,1.0137,2,1.5,21.2,True,True
+330019,"New York Community Hospital Of Brooklyn, Inc.",Brooklyn,NYC,2226,14384.17,1.1778,1,1.07,16.9,True,True
+330011,"Our Lady Of Lourdes Memorial Hospital, Inc",Binghamton,Upstate,986,14205.84,1.0263,2,1.5,13.1,True,True
+330162,Northern Westchester Hospital,Mount Kisco,Downstate suburbs,1658,14052.52,1.0221,4,0.86,14.5,True,True
+330102,Kenmore Mercy Hospital,Kenmore,Upstate,570,14028.54,1.0289,4,0.95,18.5,True,True
+330107,Peconic Bay Medical Center,Riverhead,Downstate suburbs,3478,13948.19,0.993,3,1.02,15.3,True,True
+330229,"Brooks-Tlc Hospital System, Inc",Dunkirk,Upstate,109,13881.06,0.996,4,0.97,16.4,True,False
+330264,St Luke's Cornwall Hospital,Newburgh,Upstate,1579,13845.99,1.0398,3,1.1,17.9,True,True
+330267,Hudson Valley Hospital Center,Cortlandt Manor,Downstate suburbs,2126,13804.5,0.9301,4,0.96,14.0,True,True
+330246,St Charles Hospital,Port Jefferson,Downstate suburbs,1409,13760.96,0.9009,3,0.89,12.3,True,True
+330226,Unity Hospital Of Rochester,Rochester,Upstate,1598,13752.57,1.1007,2,1.06,15.9,True,True
+330386,Garnet Health  Medical Center Catskills,Harris,Upstate,577,13697.53,1.0092,2,0.92,16.1,True,True
+330211,Claxton-Hepburn Medical Center,Ogdensburg,Upstate,143,13489.17,,,,,,False
+330065,Niagara Falls Memorial Medical Center,Niagara Falls,Upstate,126,13418.55,1.0071,2,1.24,17.1,True,False
+330276,Nathan Littauer Hospital,Gloversville,Upstate,216,13218.03,0.9894,3,1.27,19.8,True,False
+330222,Saratoga Hospital,Saratoga Springs,Upstate,1581,13210.68,0.9931,4,1.08,13.5,True,True
+330085,Aurelia Osborn Fox Memorial Hospital,Oneonta,Upstate,406,13173.35,1.0159,3,0.94,13.5,True,False
+330218,Oswego Hospital,Oswego,Upstate,421,12979.21,1.0284,4,1.25,20.7,True,False
+330073,United Memorial Medical Center,Batavia,Upstate,379,12902.41,1.0491,3,0.9,13.5,True,False
+330058,Geneva General Hospital,Geneva,Upstate,385,12853.09,1.0088,2,1.15,19.9,True,False
+330047,St Mary's Healthcare,Amsterdam,Upstate,349,12732.39,1.0064,3,1.04,13.3,True,False
+330094,Columbia Memorial Hospital,Hudson,Upstate,592,12730.01,1.0064,2,2.17,16.4,True,True
+330332,St Joseph Hospital,Bethpage,Downstate suburbs,2317,12629.84,0.9879,3,1.12,18.3,True,True
+330188,Mount St Mary's Hospital And Health Center,Lewiston,Upstate,364,12551.84,1.0543,4,0.98,19.5,True,False
+330191,Glens Falls Hospital,Glens Falls,Upstate,1782,12508.69,0.9734,3,1.38,17.3,True,True
+330224,Healthalliance Hospital Marys Avenue Campus,Kingston,Upstate,1683,12480.19,1.0405,1,1.11,16.8,True,True
+330273,Putnam Hospital Center,Carmel,Downstate suburbs,732,12407.13,0.9679,4,0.88,13.0,True,True
+330103,Olean General Hospital,Olean,Upstate,831,12177.62,1.0171,2,0.94,23.2,True,True
+330197,Canton-Potsdam Hospital,Potsdam,Upstate,658,12035.48,1.0234,4,1.18,21.2,True,True
+330401,St Catherine Of Siena Hospital Medical Center,Smithtown,Downstate suburbs,3290,12006.31,0.8898,3,0.7,16.0,True,True
+330175,Guthrie Cortland Regional Medical Center,Cortland,Upstate,445,11989.19,1.026,2,0.92,12.3,True,False
+330135,Bon Secours Community Hospital,Port Jervis,Upstate,454,11731.56,1.032,3,0.93,15.9,True,False
+330205,St Anthony Community Hospital,Warwick,Downstate suburbs,280,11680.63,0.9399,3,0.92,16.3,True,False
+330074,F F Thompson Hospital,Canandaigua,Upstate,393,11466.64,1.0714,3,0.98,15.4,True,False
+330265,Clifton Springs Hospital And Clinic,Clifton Springs,Upstate,105,11466.42,1.0522,3,1.25,15.6,False,False
+330235,Auburn  Community  Hospital,Auburn,Upstate,834,11367.19,1.0783,2,1.05,15.9,True,True
+330406,Sunnyview Hospital And Rehabilitation Center,Schenectady,Upstate,218,11365.36,,,,,,False
+330277,Corning Hospital,Corning,Upstate,601,11351.03,1.0288,3,1.15,18.7,True,True
+330239,Upmc Chautauqua At Wca,Jamestown,Upstate,571,11224.06,0.9949,3,0.89,17.5,True,True
+330030,Newark-Wayne Community Hospital,Newark,Upstate,430,10688.8,1.0921,3,1.12,13.3,True,False
+330111,Bertrand Chaffee Hospital,Springville,Upstate,32,10230.53,0.9947,3,0.99,15.6,False,False
