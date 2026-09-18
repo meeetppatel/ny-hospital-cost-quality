@@ -1,0 +1,18 @@
+# dbt connection profile for CI (GitHub Actions).
+# Contains NO secrets -- it reads everything from environment variables at
+# runtime via env_var(). Safe to commit. Local development still uses your
+# personal ~/.dbt/profiles.yml (this file is only used when DBT_PROFILES_DIR
+# points here, which the CI workflow sets).
+ny_hospital_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: "{{ env_var('GCP_PROJECT_ID') }}"
+      dataset: analytics
+      threads: 4
+      keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}"
+      location: US
+      job_execution_timeout_seconds: 600
+      job_retries: 1

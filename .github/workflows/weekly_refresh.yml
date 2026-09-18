@@ -1,0 +1,90 @@
+name: Weekly hospital data refresh
+
+# Runs the whole pipeline on a schedule (and on-demand). This is what turns the
+# project from a one-shot analysis into a recurring, self-updating data product:
+#   re-pull CMS data -> dbt build (+ 13 tests) -> LLM triage on failure -> re-export.
+#
+# Price transparency files are NOT re-pulled here: they are large per-hospital
+# manual downloads that already live in BigQuery raw tables (they change rarely).
+# Only the CMS API + Medicare cost data are refreshed weekly.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # every Monday 06:00 UTC
+  workflow_dispatch: {}    # allows manual "Run workflow" button
+
+permissions:
+  contents: write          # so the job can commit the refreshed CSV back
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/keys/gcp-key.json
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      ANTHROPIC_MODEL: claude-haiku-4-5-20251001
+      DBT_PROFILES_DIR: ${{ github.workspace }}/ny_hospital_dbt
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pandas scipy google-cloud-bigquery \
+                      dbt-core dbt-bigquery anthropic pyarrow
+
+      - name: Write BigQuery service-account key from secret
+        run: |
+          mkdir -p keys
+          echo '${{ secrets.GCP_SA_KEY }}' > keys/gcp-key.json
+          # sanity check it is valid JSON without printing it
+          python -c "import json; json.load(open('keys/gcp-key.json')); print('key ok')"
+
+      - name: Ingest CMS data (quality + cost)
+        run: |
+          python ingest_cms_api.py
+          python ingest_medicare_inpatient.py
+
+      - name: dbt deps
+        working-directory: ny_hospital_dbt
+        run: dbt deps
+
+      - name: dbt build (models + tests)
+        id: dbt_build
+        working-directory: ny_hospital_dbt
+        continue-on-error: true      # don't abort before triage runs
+        run: dbt build
+
+      - name: LLM triage on test failure
+        if: steps.dbt_build.outcome == 'failure'
+        continue-on-error: true
+        run: python llm_triage.py
+
+      - name: Re-export CSV for Tableau/Excel
+        run: python export_for_tableau.py
+
+      - name: Commit refreshed CSV if it changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tableau/hospital_cost_quality.csv docs/llm_triage_log.md || true
+          if git diff --staged --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "Weekly refresh: update hospital data export [skip ci]"
+            git push
+          fi
+
+      - name: Fail the run if dbt build failed
+        if: steps.dbt_build.outcome == 'failure'
+        run: |
+          echo "dbt build/tests failed -- see triage log."
+          exit 1
