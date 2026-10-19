@@ -32,3 +32,20 @@ SUGGESTED_ACTION: Review and adjust the `accepted_range` configuration for the `
 
 CONFIDENCE: high
 ```
+
+## Triage run 2026-10-19 12:37
+
+### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
+
+- Failing rows: 68
+- Triaged: 2026-10-19 12:37
+
+```
+FAILURE_TYPE: test-config-too-strict
+
+ROOT_CAUSE: The `accepted_range` test is failing on 68 hospitals because one or more numeric quality/cost metrics fall outside the configured acceptable bounds. All failing rows show valid hospital data with complete identifiers and realistic metric values (e.g., mortality rates 10.8–19.2, readmission ratios 0.91–1.28, star ratings 1–2). The test thresholds appear misaligned with the actual distribution of NY hospital performance data.
+
+SUGGESTED_ACTION: Review the `accepted_range` configuration limits for this mart—particularly for `mortality_30_pneumonia`, `hcahps_summary_star`, `patient_safety_psi90`, and readmission ratio fields. Expand bounds to match observed clinical performance variation, or confirm that the source data has changed materially since thresholds were last set.
+
+CONFIDENCE: high
+```
