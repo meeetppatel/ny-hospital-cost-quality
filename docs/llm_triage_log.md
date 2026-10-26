@@ -49,3 +49,20 @@ SUGGESTED_ACTION: Review the `accepted_range` configuration limits for this mart
 
 CONFIDENCE: high
 ```
+
+## Triage run 2026-10-26 12:15
+
+### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
+
+- Failing rows: 68
+- Triaged: 2026-10-26 12:15
+
+```
+FAILURE_TYPE: test-config-too-strict
+
+ROOT_CAUSE: The test is an accepted_range check that is flagging 68 hospitals for having values outside expected bounds. Based on the sample data, all failing rows have `hcahps_summary_star` values of 1 or 2, which appear to be legitimate quality ratings on a 1-5 scale. The test's configured range likely excludes valid low-performing hospitals or the threshold was set without accounting for the natural distribution of hospital quality metrics in NY.
+
+SUGGESTED_ACTION: Review the dbt_utils_accepted_range test configuration to verify the min/max bounds are appropriate for the metric being tested, and confirm whether hospitals with HCAHPS star ratings of 1-2 should legitimately be excluded from the mart or if the test bounds need adjustment.
+
+CONFIDENCE: high
+```
