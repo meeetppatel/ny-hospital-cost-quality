@@ -66,3 +66,20 @@ SUGGESTED_ACTION: Review the dbt_utils_accepted_range test configuration to veri
 
 CONFIDENCE: high
 ```
+
+## Triage run 2026-11-02 14:34
+
+### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
+
+- Failing rows: 68
+- Triaged: 2026-11-02 14:34
+
+```
+FAILURE_TYPE: test-config-too-strict
+
+ROOT_CAUSE: The test is an accepted_range validation that is flagging 68 hospitals for having metric values outside expected bounds. Examining the failing rows, all hospitals show clinically and operationally plausible values (e.g., readmission ratios between 0.9–1.2, mortality rates between 10–20, star ratings of 1–2). The test's configured acceptable range appears to be narrower than the natural variation present in real NY hospital quality metrics.
+
+SUGGESTED_ACTION: Review the dbt_utils_accepted_range test configuration to determine which metric(s) are triggering failures and whether the min/max thresholds should be widened to reflect actual hospital performance distribution. Confirm with clinical/operational stakeholders that these values are indeed valid before loosening constraints.
+
+CONFIDENCE: high
+```

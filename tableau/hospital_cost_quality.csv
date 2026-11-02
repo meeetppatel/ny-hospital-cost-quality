@@ -19,7 +19,7 @@ ccn,hospital_name,city,region,total_discharges,avg_payment_per_discharge,readmis
 330009,Bronxcare Hospital Center,Bronx,NYC,824,32182.89,1.0893,2,0.89,12.0,True,True
 330194,Maimonides Medical Center,Brooklyn,NYC,5865,32040.34,1.0896,2,0.9,11.4,True,True
 330119,Lenox Hill Hospital,New York,NYC,4039,30150.12,0.9362,2,0.96,13.5,True,True
-330234,Westchester Medical Center,Valhalla,Downstate suburbs,4024,29596.86,0.9628,2,1.22,15.3,True,True
+330234,Westchester Medical Center,Valhalla,Downstate suburbs,4024,29596.86,0.9627,2,1.22,15.3,True,True
 330056,Brooklyn Hospital Center - Downtown Campus,Brooklyn,NYC,714,29531.3,1.0456,2,0.88,16.3,True,True
 330233,Brookdale Hospital Medical Center,Brooklyn,NYC,1485,28923.12,1.0123,1,1.51,19.6,True,True
 330196,South Brooklyn Health,Brooklyn,NYC,2684,28288.81,1.1079,2,1.08,15.2,True,True
@@ -75,7 +75,7 @@ ccn,hospital_name,city,region,total_discharges,avg_payment_per_discharge,readmis
 330203,Crouse Hospital,Syracuse,Upstate,2619,15222.04,1.0532,2,1.17,19.5,True,True
 330238,Nicholas H Noyes Memorial Hospital,Dansville,Upstate,155,15156.4,0.9886,3,0.93,18.1,True,False
 330331,Plainview Hospital,Plainview,Downstate suburbs,3043,15104.48,0.9964,3,0.93,12.9,True,True
-330208,St John's Riverside Hospital,Yonkers,Downstate suburbs,1873,14966.63,1.0043,3,0.86,13.5,True,True
+330208,St John's Riverside Hospital,Yonkers,Downstate suburbs,1873,14966.63,1.0044,3,0.86,13.5,True,True
 330096,Jones Memorial Hospital,Wellsville,Upstate,221,14941.64,0.9538,4,1.11,12.7,True,False
 330104,Nyack Hospital,Nyack,Downstate suburbs,2548,14792.25,1.0805,2,0.81,14.6,True,True
 330307,Cayuga Medical Center At Ithaca,Ithaca,Upstate,717,14791.79,0.9621,3,0.96,22.0,True,True
