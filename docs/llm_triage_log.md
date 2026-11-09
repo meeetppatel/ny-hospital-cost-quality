@@ -83,3 +83,20 @@ SUGGESTED_ACTION: Review the dbt_utils_accepted_range test configuration to dete
 
 CONFIDENCE: high
 ```
+
+## Triage run 2026-11-09 15:06
+
+### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
+
+- Failing rows: 68
+- Triaged: 2026-11-09 15:06
+
+```
+FAILURE_TYPE: test-config-too-strict
+
+ROOT_CAUSE: The `accepted_range` test is flagging 68 hospitals for having `hcahps_summary_star` values of 1 or 2, which appear to be legitimate data points representing actual CMS star ratings. These are valid quality metric values, not data errors. The test's acceptable range is likely configured too narrowly and doesn't account for the full distribution of real-world hospital quality scores.
+
+SUGGESTED_ACTION: Review the test configuration bounds for `hcahps_summary_star` and other quality metrics to ensure they reflect the actual valid range of CMS quality ratings (typically 1-5 stars). Consider whether a 1-2 star rating should trigger a failure or if the test should be adjusted to allow this valid range.
+
+CONFIDENCE: high
+```
