@@ -33,10 +33,14 @@ models:
   ny_hospital_dbt:
     staging:
       +materialized: view
+      price:
+        +enabled: "{{ var('build_price', false) }}"
+        +tags: ['price']
     intermediate:
       +materialized: view
     marts:
       +materialized: table
+
 tests:
   ny_hospital_dbt:
     +store_failures: true
