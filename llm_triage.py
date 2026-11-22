@@ -40,8 +40,16 @@ MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-3-5-haiku-latest")
 client = bigquery.Client(project=PROJECT)
 
 
-def find_failed_tests():
-    """Return [(test_name, row_count, sample_rows[])] for non-empty audit tables."""
+def find_failed_tests(max_age_minutes=120):
+    """Return [(test_name, row_count, sample_rows[])] for audit tables written by
+    the CURRENT run (recently modified) that contain rows.
+
+    The recency filter matters: dbt's store_failures leaves behind audit tables
+    from past runs and removed tests. A stale orphan can still hold rows from an
+    old failure and would otherwise be re-triaged forever as a phantom failure.
+    Only tables modified within this run's window count as real current failures.
+    """
+    import datetime as _dt
     failures = []
     try:
         tables = list(client.list_tables(AUDIT_DATASET))
@@ -50,13 +58,17 @@ def find_failed_tests():
               f"store_failures enabled first.")
         return failures
 
+    cutoff = _dt.datetime.now(_dt.timezone.utc) - _dt.timedelta(minutes=max_age_minutes)
     for t in tables:
+        tbl = client.get_table(t.reference)
+        if tbl.modified < cutoff:
+            continue  # stale table from a previous run -- not a current failure
+        if (tbl.num_rows or 0) == 0:
+            continue  # test passed this run
         full = f"{PROJECT}.{AUDIT_DATASET}.{t.table_id}"
-        n = list(client.query(f"SELECT COUNT(*) c FROM `{full}`").result())[0].c
-        if n > 0:
-            rows = [dict(r) for r in
-                    client.query(f"SELECT * FROM `{full}` LIMIT {SAMPLE_ROWS}").result()]
-            failures.append((t.table_id, n, rows))
+        rows = [dict(r) for r in
+                client.query(f"SELECT * FROM `{full}` LIMIT {SAMPLE_ROWS}").result()]
+        failures.append((t.table_id, tbl.num_rows, rows))
     return failures
 
 

@@ -1,102 +1,38 @@
+# LLM test-failure triage log
 
-## Triage run 2026-09-17 10:57
+On a failed `dbt build`, `llm_triage.py` samples the failing rows from each
+test's `store_failures` audit table and asks an LLM to (1) classify the failure
+type and (2) draft a plain-English root-cause summary for review. The LLM only
+classifies and explains — it never computes, adjusts, or invents a metric value,
+and every entry is reviewed by a human before any action is taken.
+
+A healthy pipeline produces no new entries here. The entry below is from a
+**deliberately introduced test failure**, kept as a worked example of the full
+test → store_failures → triage → human-review loop.
+
+---
+
+## Triage run 2026-09-17 10:57  (deliberate validation break)
 
 ### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
 
 - Failing rows: 68
 - Triaged: 2026-09-17 10:57
 
-```
-FAILURE_TYPE: test-config-too-strict
 
-ROOT_CAUSE: The `accepted_range` test is flagging 68 hospitals with `hcahps_summary_star` values of 1 or 2, which appear to be legitimate data from CMS Hospital Compare (star ratings legitimately range from 1-5). The test's upper or lower bounds are likely misconfigured and rejecting valid quality ratings that fall outside an overly narrow range.
 
-SUGGESTED_ACTION: Review the dbt test configuration for `hcahps_summary_star` to confirm the acceptable range aligns with CMS's official 1-5 star rating scale. Adjust the test bounds if they are incorrectly excluding valid star ratings.
+**Human review (required step).** This failure was introduced on purpose — an
+`accepted_range` bound on the mart was tightened to confirm the tests, the
+`store_failures` capture, and this triage loop all fire correctly. The LLM's
+high-level classification (a test-threshold issue, not corrupt data) was correct.
+Its guess at the *specific* column is an inference from the sampled rows, not
+ground truth, so it was verified against the actual test definition before acting —
+which is exactly why the LLM is scoped to classification only and never to the
+numbers. The bound was reverted and the test passed on the next run.
 
-CONFIDENCE: high
-```
-
-## Triage run 2026-10-12 14:09
-
-### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
-
-- Failing rows: 68
-- Triaged: 2026-10-12 14:09
-
-```
-FAILURE_TYPE: test-config-too-strict
-
-ROOT_CAUSE: The dbt_utils_accepted_range test is failing because 68 hospitals have `hcahps_summary_star` values of 1 or 2, which fall outside the expected range configured in the test. These are legitimate quality star ratings from CMS data (valid values are 1-5 stars), indicating the test's acceptable range bounds are incorrectly defined—likely set to exclude values below 3 or above a certain threshold.
-
-SUGGESTED_ACTION: Review and adjust the `accepted_range` configuration for the `hcahps_summary_star` column to include the full valid CMS rating scale (1-5 stars), or confirm with stakeholders whether hospitals with 1-2 star ratings should legitimately be in this mart.
-
-CONFIDENCE: high
-```
-
-## Triage run 2026-10-19 12:37
-
-### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
-
-- Failing rows: 68
-- Triaged: 2026-10-19 12:37
-
-```
-FAILURE_TYPE: test-config-too-strict
-
-ROOT_CAUSE: The `accepted_range` test is failing on 68 hospitals because one or more numeric quality/cost metrics fall outside the configured acceptable bounds. All failing rows show valid hospital data with complete identifiers and realistic metric values (e.g., mortality rates 10.8–19.2, readmission ratios 0.91–1.28, star ratings 1–2). The test thresholds appear misaligned with the actual distribution of NY hospital performance data.
-
-SUGGESTED_ACTION: Review the `accepted_range` configuration limits for this mart—particularly for `mortality_30_pneumonia`, `hcahps_summary_star`, `patient_safety_psi90`, and readmission ratio fields. Expand bounds to match observed clinical performance variation, or confirm that the source data has changed materially since thresholds were last set.
-
-CONFIDENCE: high
-```
-
-## Triage run 2026-10-26 12:15
-
-### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
-
-- Failing rows: 68
-- Triaged: 2026-10-26 12:15
-
-```
-FAILURE_TYPE: test-config-too-strict
-
-ROOT_CAUSE: The test is an accepted_range check that is flagging 68 hospitals for having values outside expected bounds. Based on the sample data, all failing rows have `hcahps_summary_star` values of 1 or 2, which appear to be legitimate quality ratings on a 1-5 scale. The test's configured range likely excludes valid low-performing hospitals or the threshold was set without accounting for the natural distribution of hospital quality metrics in NY.
-
-SUGGESTED_ACTION: Review the dbt_utils_accepted_range test configuration to verify the min/max bounds are appropriate for the metric being tested, and confirm whether hospitals with HCAHPS star ratings of 1-2 should legitimately be excluded from the mart or if the test bounds need adjustment.
-
-CONFIDENCE: high
-```
-
-## Triage run 2026-11-02 14:34
-
-### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
-
-- Failing rows: 68
-- Triaged: 2026-11-02 14:34
-
-```
-FAILURE_TYPE: test-config-too-strict
-
-ROOT_CAUSE: The test is an accepted_range validation that is flagging 68 hospitals for having metric values outside expected bounds. Examining the failing rows, all hospitals show clinically and operationally plausible values (e.g., readmission ratios between 0.9–1.2, mortality rates between 10–20, star ratings of 1–2). The test's configured acceptable range appears to be narrower than the natural variation present in real NY hospital quality metrics.
-
-SUGGESTED_ACTION: Review the dbt_utils_accepted_range test configuration to determine which metric(s) are triggering failures and whether the min/max thresholds should be widened to reflect actual hospital performance distribution. Confirm with clinical/operational stakeholders that these values are indeed valid before loosening constraints.
-
-CONFIDENCE: high
-```
-
-## Triage run 2026-11-09 15:06
-
-### dbt_utils_accepted_range_mart__9f8c2193a8cc048af186bd727b2672c7
-
-- Failing rows: 68
-- Triaged: 2026-11-09 15:06
-
-```
-FAILURE_TYPE: test-config-too-strict
-
-ROOT_CAUSE: The `accepted_range` test is flagging 68 hospitals for having `hcahps_summary_star` values of 1 or 2, which appear to be legitimate data points representing actual CMS star ratings. These are valid quality metric values, not data errors. The test's acceptable range is likely configured too narrowly and doesn't account for the full distribution of real-world hospital quality scores.
-
-SUGGESTED_ACTION: Review the test configuration bounds for `hcahps_summary_star` and other quality metrics to ensure they reflect the actual valid range of CMS quality ratings (typically 1-5 stars). Consider whether a 1-2 star rating should trigger a failure or if the test should be adjusted to allow this valid range.
-
-CONFIDENCE: high
-```
+> Housekeeping note: for a stretch, weekly builds re-surfaced this same audit
+> table after an unrelated infrastructure issue — the raw price-transparency
+> tables expired on BigQuery sandbox's mandatory 60-day clock, which made
+> `dbt build` fail and re-ran triage against the leftover audit table. Fixed by
+> making the price models opt-in, and `llm_triage.py` now ignores audit tables
+> not written by the current run, so a stale table can't be re-triaged.
