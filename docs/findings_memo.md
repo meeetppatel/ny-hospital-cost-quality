@@ -5,6 +5,8 @@
 **Date:** September 18, 2026
 **Data:** CMS Hospital Compare + Medicare inpatient payment (Sept 2026 refresh)
 
+*Snapshot note: figures below are from the Sept 18 2026 refresh. The pipeline refreshes weekly; at the Nov 16 2026 refresh the satisfaction correlation was r = −0.40 (p < 0.001) and cost stayed at r = −0.06, so the conclusion is unchanged.*
+
 ---
 
 **Bottom line:** When choosing or steering patients toward hospitals, **patient
