@@ -1,6 +1,6 @@
 # Analysis Findings — NY Hospital Cost & Quality
 
-**Author:** Meet Patel · **Data version:** Sept 2026 CMS refresh (via the weekly
+**Author:** Meet Patel · **Data version:** November 2026 CMS refresh (via the weekly
 automated pipeline). Figures update as CMS republishes; see note at the end.
 **Analytic set:** 90 NY hospitals (>=500 reported Medicare discharges AND the 3 core
 readmission measures present), filtered from 125 NY hospitals with Medicare cost data.
@@ -11,25 +11,30 @@ Reliability filter excludes 35 low-volume / incomplete-quality hospitals.
 **Patient experience, not spending, is the signal of clinical quality.**
 
 Across 90 NY hospitals, HCAHPS patient-satisfaction star rating predicts 30-day
-excess readmission performance at **r = -0.52 (p < 0.001)** — hospitals patients
+excess readmission performance at **r = -0.40 (p < 0.001)** — hospitals patients
 rate highest readmit measurably fewer patients. Medicare per-discharge payment
 shows **no such link (r = -0.06, not significant)**: higher spending does not buy
 better outcomes.
 
-## Robustness — the satisfaction→outcomes link is not a geography artifact
+## Robustness — the satisfaction→outcomes link holds where there is variance to detect it
 
-The negative correlation holds in **every region** (direction consistent):
+Broken out by region, the negative correlation is strong and significant in the
+two higher-variance regions, and flat upstate:
 
 | Region | r (star vs readmission) | p | n |
 |---|---|---|---|
-| All NY | -0.52 | <0.001 | 90 |
-| NYC | -0.69 | 0.0002 | 25 |
-| Downstate suburbs | -0.59 | 0.0012 | 27 |
-| Upstate | -0.29 | 0.074 (ns) | 38 |
+| All NY | -0.40 | <0.001 | 90 |
+| NYC | -0.61 | 0.001 | 25 |
+| Downstate suburbs | -0.50 | 0.008 | 27 |
+| Upstate | -0.07 | 0.68 (ns) | 38 |
 
-Significant in NYC and the downstate suburbs; directionally consistent but not
-quite significant upstate (p=0.074), where hospitals cluster tightly on both
-measures, leaving little variance to detect. Reporting the upstate result honestly.
+Significant and negative in NYC and the downstate suburbs. Upstate the association
+is essentially flat (r = -0.07, not significant): upstate hospitals cluster tightly
+on both satisfaction and readmissions, so there is little variance left to detect a
+relationship. The link is not a pure geography artifact — it reproduces independently
+in the two regions that have spread — but it is reported honestly that upstate does
+not show it. (At earlier refreshes upstate was weakly directional at r = -0.29; it
+has since flattened, which is the kind of drift a live pipeline exposes.)
 
 ## Cost vs quality is decoupled — with a geographic caveat
 
@@ -61,8 +66,8 @@ cost and outcomes are decoupled, which the within-region tests support.
 
 These figures come from a weekly automated refresh (GitHub Actions → re-ingest CMS
 data → dbt build + tests → re-export). When CMS republishes source data, the exact
-coefficients move: an earlier snapshot showed the headline at r = -0.44; the Sept
-2026 HCAHPS refresh moved it to r = -0.52. The **finding is stable and directional**
-— satisfaction strongly predicts quality, cost does not — even as the point estimate
-updates. Deliverables cite the current value with its data date rather than a frozen
-number.
+coefficients move: earlier snapshots showed the headline at r = -0.44, then r = -0.52,
+and the November 2026 refresh puts it at r = -0.40. The **finding is stable and
+directional** — satisfaction predicts quality, cost does not — even as the point
+estimate updates. Deliverables cite the current value with its data date rather than
+a frozen number.

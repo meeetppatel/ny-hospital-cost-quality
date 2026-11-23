@@ -42,7 +42,7 @@ sat = a.dropna(subset=["hcahps_summary_star"])
 r1, p1 = stats.pearsonr(sat.hcahps_summary_star, sat.avg_excess_readmission_ratio)
 r2, p2 = stats.pearsonr(a.volume_weighted_avg_payment, a.avg_excess_readmission_ratio)
 print(f"  analytic n={len(a)}")
-print(f"  satisfaction vs readmission: r={r1:.3f} p={p1:.5f}  (expect ~-0.44, p<0.001)")
+print(f"  satisfaction vs readmission: r={r1:.3f} p={p1:.5f}  (expect ~-0.40, p<0.001)")
 print(f"  cost vs readmission:         r={r2:.3f} p={p2:.4f}  (expect ~-0.06, ns)")
 
 print("\n=== 5. Unified price transparency table ===")

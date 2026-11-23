@@ -167,7 +167,12 @@ where negotiated_dollar is not null
    or negotiated_algorithm is not null
 """
 
-    out_path = f"{model_name}.sql"
+    # Price models are the opt-in module under models/staging/price/ (kept out of
+    # the default build). Resolve relative to this script so it works from any CWD.
+    out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           "ny_hospital_dbt", "models", "staging", "price")
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, f"{model_name}.sql")
     with open(out_path, "w") as f:
         f.write(sql)
     print(f"Wrote {out_path}: {len(groups)} payer-plans via UNPIVOT "

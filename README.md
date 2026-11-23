@@ -8,14 +8,12 @@ numbers current.
 ## Key finding
 
 Across 90 New York hospitals, patient-satisfaction ratings track 30-day
-readmission performance (r between -0.40 and -0.52 across weekly refreshes,
-p < 0.001 every time). Medicare payment per discharge does not (r = -0.06, not
-significant). Patient experience carries a real quality signal; the price tag
-does not.
+readmission performance (r = -0.40, p < 0.001). Medicare payment per discharge
+does not (r = -0.06, not significant). Patient experience carries a real quality
+signal; the price tag does not.
 
-*(This is a live pipeline, so the exact coefficient moves as CMS republishes:
-r = -0.52 at the Sept 2026 refresh used in the memo, r = -0.40 at the Nov 16 2026
-refresh. See the note at the end.)*
+*(Figures from the November 2026 automated refresh. This is a live pipeline — see
+the note at the end.)*
 
 [Live dashboard (Tableau Public)](https://public.tableau.com/app/profile/meet.patel5823/viz/NYHospitalcostquality/Dashboard1)
  · [One-page findings memo](docs/findings_memo.md)
@@ -50,12 +48,20 @@ staging, aggregates to one row per hospital in intermediate models, and joins
 them into a single mart. Tests run on every build. The weekly Action re-ingests
 the CMS data, rebuilds, tests, and re-exports the report.
 
-![dbt lineage graph](docs/lineage_graph.png)
-
-*Raw sources (green) → cleaned staging models → hospital-level intermediate
-models → one analytical mart → tests. dbt builds this dependency graph
-automatically from the code.*
-
+```
+CMS Provider Data API (quality) ─┐
+CMS Medicare cost CSV (cost) ────┼─► Python ingest ─► BigQuery (raw)
+                                 ┘                       │
+                                               staging (clean, type,
+                                               handle CMS suppression)
+                                                         │
+                                               intermediate (one row/hospital)
+                                                         │
+                                               mart_hospital_cost_quality
+                                                         │
+                            ┌────────────────────────────┼───────────────────────┐
+                        13 dbt tests              Tableau dashboard        Excel + Power Query
+```
 
 A separate, optional module unifies eight hospital price-transparency files into
 one schema. It's a data-engineering exercise and does not feed the finding, so
@@ -91,7 +97,7 @@ documents 10 real data-quality problems with evidence in
 
 - Cost is the volume-weighted average Medicare payment across a hospital's real case mix.
 - Quality is the risk-adjusted 30-day excess readmission ratio (1.0 = as expected).
-- Correlations use `scipy.stats.pearsonr`. Robustness is checked within each region, so the finding isn't a geography artifact — it holds in NYC, the suburbs, and upstate. Full write-up: [`docs/analysis_findings.md`](docs/analysis_findings.md).
+- Correlations use `scipy.stats.pearsonr`. Robustness is checked within each region: the satisfaction link reproduces significantly in NYC (r = -0.61) and the downstate suburbs (r = -0.50), and is flat upstate (r = -0.07), where hospitals cluster too tightly to show it — so it isn't a pure geography artifact. Full write-up: [`docs/analysis_findings.md`](docs/analysis_findings.md).
 
 **Honest caveat (stated, not buried):** raw cost differs about 89% between NYC and
 upstate hospitals largely because of Medicare's geographic wage index, not
@@ -120,14 +126,15 @@ cd ny_hospital_dbt && dbt build --vars 'build_price: true'
 ```
 ingest_cms_api.py, ingest_medicare_inpatient.py   CMS quality + Medicare cost → BigQuery (raw)
 load_price_transparency.py                        optional: 8 hospital price files → BigQuery
-generate_wide_unpivot_sql.py                      code-generates dbt SQL for the wide price file
+generate_wide_unpivot_sql.py                      code-generates dbt SQL for the wide price files
 ny_hospital_dbt/                                  dbt project (staging → intermediate → mart, 13 tests)
+  models/staging/price/                           optional price-unification models (opt-in)
 analysis_cost_quality.py, analysis_robustness.py  the statistical analysis
 llm_triage.py                                     LLM test-failure triage (human-reviewed)
 export_for_tableau.py                             mart → CSV for Tableau and Excel
 audit_pipeline.py                                 end-to-end pipeline audit
 .github/workflows/weekly_refresh.yml              weekly automation
-docs/                                             memo, data-quality doc, analysis, lineage graph, triage log
+docs/                                             memo, data-quality doc, analysis, triage log
 tableau/, excel/                                  dashboard workbook + refreshable report
 ```
 
@@ -145,7 +152,7 @@ dbt build --vars 'build_price: true'
 
 ## Notes and limitations
 
-- **Live pipeline:** figures update weekly as CMS republishes. The satisfaction coefficient has ranged from r = -0.40 to -0.52 across refreshes (-0.44 early on, -0.52 in Sept 2026, -0.40 on Nov 16 2026), always significant at p < 0.001. The finding is stable in direction even as the exact number moves.
+- **Live pipeline:** figures update weekly as CMS republishes. The headline has moved across refreshes (r = -0.44, then -0.52, and -0.40 in November 2026) — the finding is stable and directional even as the exact coefficient drifts.
 - Public CMS data supports a defensible finding, not clinical causation.
 - Scoped to 90 NY hospitals with sufficient Medicare volume.
 - A portfolio project, not production experience.

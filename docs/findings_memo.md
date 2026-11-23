@@ -2,10 +2,10 @@
 
 **To:** Health-plan network strategy
 **From:** Meet Patel
-**Date:** September 18, 2026
-**Data:** CMS Hospital Compare + Medicare inpatient payment (Sept 2026 refresh)
+**Date:** November 23, 2026
+**Data:** CMS Hospital Compare + Medicare inpatient payment (November 2026 refresh)
 
-*Snapshot note: figures below are from the Sept 18 2026 refresh. The pipeline refreshes weekly; at the Nov 16 2026 refresh the satisfaction correlation was r = −0.40 (p < 0.001) and cost stayed at r = −0.06, so the conclusion is unchanged.*
+*Snapshot note: figures below are from the November 2026 refresh (satisfaction r = −0.40, p < 0.001; cost r = −0.06). The pipeline refreshes weekly and the exact coefficient drifts, but the conclusion — satisfaction signals quality, cost does not — is unchanged.*
 
 ---
 
@@ -34,10 +34,11 @@ readmission measures to compare reliably.
 ## The finding
 
 - **Patient satisfaction predicts quality.** A hospital's patient-satisfaction
-  star rating correlates with its readmission performance at **r = −0.52
-  (p < 0.001)** — higher satisfaction, fewer readmissions. The relationship holds
-  within NYC, the suburbs, and upstate separately, so it is not an artifact of
-  geography.
+  star rating correlates with its readmission performance at **r = −0.40
+  (p < 0.001)** — higher satisfaction, fewer readmissions. The relationship
+  reproduces independently and significantly in NYC (r = −0.61) and the downstate
+  suburbs (r = −0.50); upstate it is flat, where hospitals cluster too tightly to
+  show a relationship — so the signal is not a pure artifact of geography.
 - **Cost does not.** Medicare payment per discharge has **no meaningful relationship
   with readmissions (r = −0.06, not significant).** Paying more buys no better
   outcomes.
@@ -66,5 +67,5 @@ expected on outcomes).
   prove that improving satisfaction reduces them; both may reflect underlying care
   quality.
 - **Scope.** 90 hospitals with sufficient Medicare volume; excludes low-volume
-  facilities whose figures are statistically thin. Figures reflect the Sept 2026
+  facilities whose figures are statistically thin. Figures reflect the November 2026
   CMS refresh and update as CMS republishes.
